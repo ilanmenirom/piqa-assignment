@@ -12,6 +12,12 @@ def get_google_api_key() -> str:
     return key if key else input("Insert Google API key:")
 
 
+def calculate_accuracy(list1: List, list2: List) -> float:
+    assert len(list1) == len(list2), "When calculation accuracy, lists must have the same length"
+    num_accurate = sum([x1 == x2 for x1, x2 in zip(list1, list2)])
+    return num_accurate / len(list1)
+
+
 def convert_response_to_index(answer: str, options: Tuple[str, str]) -> int:
     choice = parse_choice(answer)
     return convert_choice_to_index(choice, options)
