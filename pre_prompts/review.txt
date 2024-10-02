@@ -1,0 +1,1 @@
+I will give you a question or sentence to complete and two possible answers. Then I will provide a choice for which answer is better. Please review the question and the choice, and then say if you think the choice is correct. Please write your final answer (either 'Correct' or 'Incorrect') between the <answer> and </answer> tags. Please also provide your reasoning.

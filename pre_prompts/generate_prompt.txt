@@ -1,0 +1,1 @@
+Given this dictionary with question or sentences to complete and two choices, help me write a prompt that asks an LLM to choose one of them. LLM can also provide reasoning, but needs to choose between A and B. You can rephrase the question and the choices, to make the prompt concise.

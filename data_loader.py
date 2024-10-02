@@ -1,17 +1,16 @@
-from typing import Tuple, List
-
-import numpy as np
+import json
+import random
+from typing import Tuple
 
 from consts import QUESTIONS_PATH, ANSWERS_PATH
 
-QUESTIONS_LIST = open(QUESTIONS_PATH, "r").readlines()
-ANSWERS_LIST = open(ANSWERS_PATH, "r").readlines()
-assert len(QUESTIONS_LIST) == len(ANSWERS_LIST), "Questions and answers should be in the same length"
-NUM_SAMPLES = len(ANSWERS_LIST)
+# Load the static dataset:
+questions = [json.loads(line) for line in open(QUESTIONS_PATH, "r").readlines()]
+answers = [int(line) for line in open(ANSWERS_PATH, "r").readlines()]
+assert len(questions) == len(answers), "Questions and answers should be in the same length"
+qa_pairs = list(zip(questions, answers))
 
 
-class DataLoader:
-    @staticmethod
-    def get_random_samples(num_samples: int) -> Tuple[List, List]:
-        indices = np.random.choice(range(NUM_SAMPLES), size=num_samples, replace=False)
-        return [QUESTIONS_LIST[ind] for ind in indices], [int(ANSWERS_LIST[ind]) for ind in indices]
+# Return two lists, one for questions and one for answers
+def load_random_questions_and_answers(num_samples: int) -> Tuple:
+    return zip(*random.sample(qa_pairs, num_samples))

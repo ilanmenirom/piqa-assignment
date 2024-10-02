@@ -1,19 +1,20 @@
-import os
+import argparse
+from collections import Counter
+from typing import Tuple, List
 
 from consts import NO_INDEX_KEY, NO_CHOICE_KEY, START_TAG, END_TAG
 
 
 def get_google_api_key() -> str:
-    key = os.environ.get('GOOGLE_API_KEY', None)
-    if key is None:
-        return input("Insert Google API key:")
-    else:
-        return key
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--key", help="Specify Google API key", default=None)
+    key = parser.parse_args().key
+    return key if key else input("Insert Google API key:")
 
 
-def convert_response_to_index(answer: str) -> int:
+def convert_response_to_index(answer: str, options: Tuple[str, str]) -> int:
     choice = parse_choice(answer)
-    return convert_choice_to_index(choice)
+    return convert_choice_to_index(choice, options)
 
 
 def parse_choice(response: str) -> str:
@@ -25,20 +26,22 @@ def parse_choice(response: str) -> str:
     return response[start_tag_pos + len(START_TAG):end_tag_pos]
 
 
-def convert_choice_to_index(choice: str) -> int:
-    if choice == "A":
-        return 0
-    elif choice == "B":
-        return 1
+def convert_choice_to_index(choice: str, options: Tuple[str, str]) -> int:
+    if choice in options:
+        return options.index(choice)
     else:
         return NO_INDEX_KEY
 
 
-def convert_index_to_choice(index: int) -> str:
-    if index == 0:
-        return "A"
-    elif index == 1:
-        return "B"
-    else:
-        return NO_CHOICE_KEY
+def get_selected_solution(question: dict, choice_ind: int) -> str:
+    solution_key = f'sol{choice_ind + 1}'
+    return NO_CHOICE_KEY if choice_ind == NO_INDEX_KEY else question[solution_key]
 
+
+def flip_choices(question: dict) -> dict:
+    question['sol1'], question['sol2'] = question['sol2'], question['sol1']
+    return question
+
+
+def majority(list_in: List[int]) -> int:
+    return Counter(list_in).most_common(1)[0][0]

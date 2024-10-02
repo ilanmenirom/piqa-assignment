@@ -1,8 +1,12 @@
 NO_INDEX_KEY = -1
 NO_CHOICE_KEY = "NONE"
-QUESTIONS_PATH = "datasets/questions.txt"
-ANSWERS_PATH = "datasets/answers.txt"
-INITIAL_ANSWER_PRE_PROMPT_PATH = "pre_prompts/initial_pre_prompt.txt"
-REVIEW_ANSWER_PRE_PROMPT_PATH = "pre_prompts/review_pre_prompt.txt"
+QUESTIONS_PATH = "piqa_datasets/questions.txt"
+ANSWERS_PATH = "piqa_datasets/answers.txt"
+SINGLE_ANSWER_PRE_PROMPT_PATH = "pre_prompts/single_answer.txt"
+ANSWER_BEFORE_REVIEWS_PRE_PROMPT_PATH = "pre_prompts/answer_before_reviews.txt"
+REVIEW_PRE_PROMPT_PATH = "pre_prompts/review.txt"
+GENERATE_PROMPT_PRE_PROMPT_PATH = "pre_prompts/generate_prompt.txt"
 START_TAG = "<answer>"
 END_TAG = "</answer>"
+ANSWER_CHOICES = ("A", "B")
+REVIEW_CHOICES = ("Correct", "Incorrect")
